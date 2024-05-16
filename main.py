@@ -17,7 +17,7 @@ for f in files:
     pdf = FPDF(orientation="P", unit="mm", format="a4")
     pdf.add_page()
     pdf.set_font(family="Times", style="B", size=14)
-    pdf.multi_cell(w=0, h=14, txt=txt, align="L")
+    pdf.multi_cell(w=0, h=10, txt=txt, align="L")
     columns = df.columns
     columns = [col.replace("_", " ").title() for col in columns]
     pdf.set_font(family="Times", style="B", size=12)
@@ -39,4 +39,10 @@ for f in files:
     pdf.cell(w=150, h=10, border=0, txt="Total amount payable:", align="R")
     total = df["total_price"].sum()
     pdf.cell(w=30, h=10, border=1, txt=str(total), align="R", ln=1)
+    pdf.ln(10)
+    pdf.set_font(family="Times", size=14)
+    pdf.cell(w=0, h=10, border=0, txt=f"The total amount is {total} Euros.", align="L", ln=1)
+    pdf.cell(w=0, h=10, border=0, txt="Fake Factory", align="L", ln=1)
+    pdf.image(name="data/pythonhow.png", w=25, h=25)
+
     pdf.output(f"output/{inv_filename}.pdf")
